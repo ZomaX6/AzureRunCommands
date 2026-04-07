@@ -22,7 +22,10 @@ function Write-Log {
     $Date = (Get-Date).ToString("dd.MM.yyyy HH:mm:ss.fff")
     $LogDate = (Get-Date).ToString("yyyy-MM-dd")
     $LogFileName = "{0}_{1}.txt" -f $LogDate, $FileName
-    $LogFile = Join-Path $PSScriptRoot -ChildPath "ScriptLogs" $LogFileName
+    $LogFile = Join-Path $PSScriptRoot -ChildPath "ScriptLogs\$LogFileName"
+    if (-not (Test-Path "$PSScriptRoot\ScriptLogs")) {
+        New-Item -Path $PSScriptRoot -Name ScriptLogs -ItemType Directory
+    }
     $Output = "{0}|{1}|{2}|{3}" -f $Date, $FileName, $Level, $String
     $Output | Out-File $LogFile -Append
     if ($ConsoleVerbose) {
