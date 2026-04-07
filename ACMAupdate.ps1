@@ -38,7 +38,7 @@ Write-Log INFO "Skripta startovana"
 $ACMApath = Join-Path $env:TEMP -ChildPath $ACMAfile
 
 try {
-    Invoke-WebRequest -Uri $ACMAuri-OutFile $ACMApath
+    Invoke-WebRequest -Uri $ACMAuri -OutFile $ACMApath
     Write-Log SUCCESS "Instalacija skinuta"
 }
 catch {
