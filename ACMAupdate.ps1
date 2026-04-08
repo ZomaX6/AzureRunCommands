@@ -47,7 +47,7 @@ catch {
     exit
 }
 
-$ACMAargs = '/i $ACMApath /quiet /norestart /log $ACMAlog'
+$ACMAargs = '/i $ACMApath /qn /l*v $ACMAlog'
 try {
     Start-Process msiexec.exe -ArgumentList $ACMAargs -NoNewWindow -Wait
     Write-Log SUCCESS "Instalacija uspesno trigerovana, za detaljan log pogledaj $ACMAlog"
