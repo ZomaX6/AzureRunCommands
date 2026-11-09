@@ -1,7 +1,7 @@
 param (
     [string]$ACMAuri = "\\rsbe01ms0014\data$\Instalacije\Microsoft\AzureConnectedMachineAgent.msi",
     [string]$ACMAfile = "AzureConnectedMachineAgent.msi",
-    [string]$ACMAlog = "C:\Program Files\AzureConnectedMachineAgent\agent_install.log"
+    [string]$ACMAlog = "$env:ProgramFiles\AzureConnectedMachineAgent\agent_install.log"
 )
 
 $ErrorActionPreference = "Stop"
@@ -35,6 +35,7 @@ function Write-Log {
 
 Write-Log INFO "Skripta startovana"
 
+$ACMApath = Join-Path $env:TEMP -ChildPath $ACMAfile
 try {
     Copy-Item -Path $ACMAuri -Destination $ACMApath
     Write-Log SUCCESS "Instalacija skinuta"
@@ -45,7 +46,7 @@ catch {
     exit
 }
 
-$ACMApath = Join-Path $env:TEMP -ChildPath $ACMAfile
+
 $ACMAargs = "/i `"$ACMApath`" /qn /l*v `"$ACMAlog`""
 try {
     Start-Process msiexec.exe -ArgumentList $ACMAargs -NoNewWindow -Wait

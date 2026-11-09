@@ -1,7 +1,7 @@
 param (
     [string]$ACMAuri = "https://gbl.his.arc.azure.com/azcmagent/latest/AzureConnectedMachineAgent.msi",
     [string]$ACMAfile = "AzureConnectedMachineAgent.msi",
-    [string]$ACMAlog = "C:\Program Files\AzureConnectedMachineAgent\agent_install.log"
+    [string]$ACMAlog = "$env:ProgramFiles\AzureConnectedMachineAgent\agent_install.log"
 )
 
 $ErrorActionPreference = "Stop"
@@ -36,7 +36,6 @@ function Write-Log {
 Write-Log INFO "Skripta startovana"
 
 $ACMApath = Join-Path $env:TEMP -ChildPath $ACMAfile
-
 try {
     Invoke-WebRequest -Uri $ACMAuri -OutFile $ACMApath
     Write-Log SUCCESS "Instalacija skinuta"
